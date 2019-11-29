@@ -1,0 +1,51 @@
+server:
+  port: 9010 
+
+#Spring Boot configuration file example
+spring:
+  boot:
+    config:
+      tibco:
+        # Parametros COTI
+        hostCOTI: localhost
+        puerto01: 13001
+        usuarioCOTI: UsrBindCOTI
+        contrasenaCOTI: UsrBindCOTI
+        colaPeticion: MX.ELEKTRA.SPV.COTI.SUCURSAL.WSPETICION.PUB
+        colaRespuesta: MX.ELEKTRA.SPV.COTI.SUCURSAL.WSRESPUESTA.PUB
+        colaNotificacion: MX.ELEKTRA.SPV.COTI.SUCURSAL.NOTIFICACIONES.PUB
+        # Parametros Tiendas
+        hostTiendas: localhost
+        puerto05: 13005
+        puerto06: 13006
+        puerto07: 13007
+        puerto08: 13008
+        usuarioTiendas: UsrEntCOTI 
+        contrasenaTiendas: UsrEntCOTI
+        cola01: ELEKTRA.MX.ICC_COMMON.TRANSACCION.COTI.01.PUB
+        cola02: ELEKTRA.MX.ICC_COMMON.TRANSACCION.COTI.02.PUB
+        cola03: ELEKTRA.MX.ICC_COMMON.TRANSACCION.COTI.03.PUB
+        cola04: ELEKTRA.MX.ICC_COMMON.TRANSACCION.COTI.04.PUB
+      manhattan:
+        endpoint:
+          afectaInventario: http://localhost:8080/AfectaInventario
+          fueraDeLinea: http://localhost:8080/FueraDeLinea
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+  h2:    console:      enabled: true
+      path: /h2-console
+  application:
+    name: transacciones-ms
+        
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    preferIpAddress: true
