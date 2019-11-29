@@ -4,6 +4,14 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+/**
+ * 
+ * Clase para transferir movimientos de inventario como mensaje TIBCO y peticion WS
+ * 
+ * @author Edgar Quiroz
+ * @version 1.0 25/11/19
+ *
+ */
 public class MovimientoInventario {
 	
 	private Integer tienda;
