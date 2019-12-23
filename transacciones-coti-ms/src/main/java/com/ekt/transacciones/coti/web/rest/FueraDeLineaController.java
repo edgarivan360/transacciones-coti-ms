@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.ekt.transacciones.coti.commons.to.FueraDeLinea;
-import com.ekt.transacciones.coti.commons.to.RespuestaFueraDeLinea;
+import com.ekt.transacciones.coti.commons.to.MovimientoInventario;
+import com.ekt.transacciones.coti.commons.to.RespuestaMovimientoInventario;
 
 @RestController
 @RequestMapping("/COTI/FueraDeLinea")
@@ -21,12 +21,12 @@ public class FueraDeLineaController {
 	public static Logger LOG = LoggerFactory.getLogger(FueraDeLineaController.class);
 	
 	@PostMapping("/peticion")
-	RespuestaFueraDeLinea getRespuestaFueraDeLinea(@RequestBody FueraDeLinea peticion) {
+	RespuestaMovimientoInventario getRespuestaFueraDeLinea(@RequestBody MovimientoInventario peticion) {
 		RestTemplate clienteFueraDeLinea = new RestTemplate();
 		HttpHeaders encabezado = new HttpHeaders();
 		encabezado.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<FueraDeLinea> peticionHttp = new HttpEntity<>(peticion, encabezado);
-		RespuestaFueraDeLinea respuesta = clienteFueraDeLinea.postForObject( "http://localhost:8080/FueraDeLinea/peticion", peticionHttp, RespuestaFueraDeLinea.class);
+		HttpEntity<MovimientoInventario> peticionHttp = new HttpEntity<>(peticion, encabezado);
+		RespuestaMovimientoInventario respuesta = clienteFueraDeLinea.postForObject( "http://localhost:8080/FueraDeLinea/peticion", peticionHttp, RespuestaMovimientoInventario.class);
 		LOG.info("response: " + respuesta);
 		return respuesta;
 	}

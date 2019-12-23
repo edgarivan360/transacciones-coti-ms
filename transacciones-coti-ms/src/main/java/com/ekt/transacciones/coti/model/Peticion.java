@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 @Table(name="PETICION")
 public class Peticion implements Serializable {
 
-	/**
+	/*
 	 * ID serializaci\u00f3n clase/entidad
 	 */
 	private static final long serialVersionUID = 1215643243;
