@@ -6,10 +6,10 @@ import com.google.gson.Gson;
 
 /**
  * 
- * Clase objeto de transferencia para peticiones de movimientos de inventario
+ * Clase para transferir movimientos de inventario como mensaje TIBCO y peticion WS
  * 
  * @author Edgar Quiroz
- * @version 1.0 21/11/19
+ * @version 1.0 25/11/19
  *
  */
 public class MovimientoInventario {
