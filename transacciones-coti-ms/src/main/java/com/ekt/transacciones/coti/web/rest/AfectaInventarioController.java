@@ -33,7 +33,7 @@ public class AfectaInventarioController {
 	 */
 	@PostMapping("/peticion")
 	public void getRespuestaAfectaInventario(@RequestBody MovimientoInventario peticion) {
-		afectaInventarioFacade.afectaInventario(peticion);	
+		afectaInventarioFacade.afectaInventario(peticion);
 	}
 	
 }

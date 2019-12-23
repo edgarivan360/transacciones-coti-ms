@@ -9,14 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.ekt.transacciones.coti.commons.message.EktCodigosMensajes;
 import com.ekt.transacciones.coti.commons.message.EktGeneradorMensajes;
-import com.ekt.transacciones.coti.commons.to.FueraDeLinea;
 import com.ekt.transacciones.coti.commons.to.MovimientoInventario;
-import com.ekt.transacciones.coti.commons.to.RespuestaFueraDeLinea;
 import com.ekt.transacciones.coti.commons.to.RespuestaMovimientoInventario;
 import com.ekt.transacciones.coti.services.facade.IAfectaInventarioFacade;
 import com.ekt.transacciones.coti.services.service.IAfectaInventarioClient;
 import com.ekt.transacciones.coti.services.service.IAfectaInventarioService;
-import com.ekt.transacciones.coti.services.service.IFueraDeLineaClient;
 
 import feign.RetryableException;
 
@@ -25,9 +22,6 @@ public class AfectaInventarioFacadeImpl implements IAfectaInventarioFacade {
 	
 	public static Logger LOG = LoggerFactory.getLogger(AfectaInventarioFacadeImpl.class);
 	private final EktGeneradorMensajes generadorMensajes = EktGeneradorMensajes.getInstancia();
-
-	@Autowired
-	private IFueraDeLineaClient fueraDeLineaClient;
 	
 	@Autowired
 	private IAfectaInventarioClient afectaInventarioClient;
@@ -36,10 +30,7 @@ public class AfectaInventarioFacadeImpl implements IAfectaInventarioFacade {
 	private IAfectaInventarioService afectaInventarioService;
 
 	@Override
-	public void afectaInventario(MovimientoInventario peticion) {
-		// Objeto de prueba
-		FueraDeLinea objetoFueraDeLinea = new FueraDeLinea(peticion.getTienda(), true);
-		
+	public void afectaInventario(MovimientoInventario peticion) {		
 		// Variables auxiliares
 		Boolean estatusPeticion = false;
 		String jmsMensajeID = null;
@@ -47,11 +38,10 @@ public class AfectaInventarioFacadeImpl implements IAfectaInventarioFacade {
 		
 		// Consumo de WS FueraDeLinea y AfectaInventario
 		try {
-			RespuestaFueraDeLinea respuestaFueraDeLinea = fueraDeLineaClient.getRespuestaFueraDeLinea(objetoFueraDeLinea);
 			RespuestaMovimientoInventario respuestaMovimientoInventario = afectaInventarioClient.getRespuestaAfectaInventario(peticion);
 		
 			// Validacion consumo de WS
-			if(respuestaFueraDeLinea.getEntregado() && respuestaMovimientoInventario.getEntregado()) {
+			if(respuestaMovimientoInventario.getEntregado()) {
 				jmsMensajeID = afectaInventarioService.enviarMensajeJMS(peticion);
 				estatusPeticion = (!jmsMensajeID.isEmpty() ? true : false);
 				mensaje = (!jmsMensajeID.isEmpty() ? 
